@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  web:
+    image: gb-deployment:v1
+    environment:
+      - "DEPLOY_ENV=GREEN"
+    labels:
+      - "traefik.enable=true"
+
+      - "traefik.http.services.web-gb-deployment.loadbalancer.healthcheck.path=/status"
+      - "traefik.http.services.web-gb-deployment.loadbalancer.healthcheck.interval=1s"
+      - "traefik.http.services.web-gb-deployment.loadbalancer.healthcheck.timeout=1s"
+      - "traefik.http.services.web-gb-deployment.loadbalancer.server.port=8081"
+
+      - "traefik.http.middlewares.web-gb-deployment-blue.retry.attempts=5"
+
+      - "traefik.http.routers.web-gb-deployment-green.entrypoints=http"
+      - "traefik.http.routers.web-gb-deployment-green.rule=Host(`localhost`)"
+    networks:
+      - my-app
+
+networks:
+  my-app:
+    external:
+      name: gb_deployment_load-balancer_my-app

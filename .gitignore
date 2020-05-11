@@ -1,0 +1,6 @@
+# IDE Metadata
+.idea/
+.vscode/
+
+# Project assets
+node_modules/

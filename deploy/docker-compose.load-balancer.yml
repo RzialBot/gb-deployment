@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  web:
+    image: library/traefik:2.2
+    labels:
+      - "traefik.enable=false"
+    networks:
+      - my-app
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./traefik/config.yml:/etc/traefik/traefik.yml"
+
+networks:
+  my-app:
+    driver: bridge

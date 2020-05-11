@@ -1,0 +1,11 @@
+# IDE Metadata
+.idea/
+.vscode/
+
+# Project assets
+deploy/
+node_modules/
+
+# Docker specific assets
+.dockerignore
+Dockerfile
